@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#182735">
+<meta name="description" content="GlobalMegaStore — a fast, responsive global shopping experience.">
+<title>GlobalMegaStore — Shop the world</title>
+<style>
+:root{--nav:#182735;--nav2:#22384a;--orange:#ffad32;--red:#c83b22;--bg:#f2f4f6;--ink:#17212b;--muted:#65717c;--line:#e2e6e9;--white:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px Inter,system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}.top{background:var(--nav);color:white;padding:12px max(16px,calc((100% - 1200px)/2));display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{font-size:22px;font-weight:850;letter-spacing:-.7px;white-space:nowrap}.brand b{color:var(--orange)}.delivery{font-size:12px;color:#d8e0e7;min-width:130px}.delivery strong{display:block;color:white;font-size:13px}
+.search{display:flex;flex:1;min-width:220px;background:white;border-radius:8px;overflow:hidden;height:42px}.search input{border:0;outline:0;padding:0 13px;flex:1;min-width:0}.search button{border:0;background:var(--orange);padding:0 17px;font-weight:700}
+.head-actions{display:flex;gap:14px;align-items:center}.head-actions button{background:transparent;color:white;border:0;font-size:13px}.subnav{background:var(--nav2);color:#fff;padding:9px max(16px,calc((100% - 1200px)/2));display:flex;gap:20px;overflow:auto;white-space:nowrap;font-size:13px}.subnav a{color:white;text-decoration:none}
+.wrap{max-width:1200px;margin:auto;padding:18px 16px 90px}.welcome{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 15px;flex-wrap:wrap}.welcome h1{font-size:23px;margin:0}.small{color:var(--muted);font-size:13px}.hero{background:linear-gradient(110deg,#ffdfad,#fff0d9 55%,#f9c879);border-radius:14px;padding:28px;display:flex;align-items:center;justify-content:space-between;gap:20px;overflow:hidden;min-height:190px}.hero h2{font-size:clamp(25px,4vw,42px);line-height:1.05;margin:0 0 9px;max-width:550px}.hero p{margin:0 0 17px;color:#654b2b}.primary{background:var(--nav);color:white;border:0;border-radius:7px;padding:11px 17px;font-weight:700}.hero-art{font-size:86px;filter:drop-shadow(0 12px 8px #a66b2b44)}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:25px 0 12px}.section-head h2{font-size:19px;margin:0}.categories{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.cat-group{background:#fff;border:1px solid var(--line);border-radius:11px;padding:14px;min-width:0}.cat-main{display:flex;align-items:center;gap:10px;border:0;background:transparent;padding:0;text-align:left;font-weight:800;color:var(--ink);width:100%;font-size:14px}.cat-main span{font-size:27px}.cat-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}.cat-link{border:1px solid #e8ebee;background:#f7f8f9;border-radius:20px;padding:6px 9px;font-size:11px;color:#4d5963}.cat-link:hover,.cat-main:hover{color:#a65e00}.cat-link.active{background:#fff0d9;border-color:#f3c77e;color:#7b4800;font-weight:800}.category-toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.category-toolbar button{border:1px solid var(--line);background:#fff;border-radius:20px;padding:7px 12px;font-size:12px}.category-toolbar button.active{background:var(--nav);color:#fff;border-color:var(--nav)}.active-category-note{font-size:12px;color:var(--muted);margin-top:5px}
+.toolbar{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.toolbar input,.toolbar select{border:1px solid var(--line);border-radius:7px;background:white;padding:9px;color:var(--ink)}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.product{content-visibility:auto;contain-intrinsic-size:300px 360px;background:white;border:1px solid var(--line);border-radius:11px;overflow:hidden;display:flex;flex-direction:column;min-width:0}.photo{height:170px;background:#f8f9fa;display:grid;place-items:center;font-size:65px}.pbody{padding:12px;display:flex;flex-direction:column;gap:7px;flex:1}.pname{font-weight:650;line-height:1.35;min-height:38px}.rating{font-size:12px;color:#a66b00}.price{font-size:20px;font-weight:800;color:var(--red)}.old{font-size:12px;color:#7b858d;text-decoration:line-through;margin-left:5px}.discount{font-size:11px;background:#fff0e9;color:#b43a20;padding:4px 6px;border-radius:4px;align-self:flex-start}.add{margin-top:auto;border:0;background:#ffd58c;border-radius:7px;padding:9px;font-weight:700}.add:hover{background:#ffc45d}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--line);display:flex;justify-content:center;z-index:5}.bottom-inner{width:min(650px,100%);display:grid;grid-template-columns:repeat(5,1fr)}.bottom button{border:0;background:white;padding:9px 3px;color:#48545e;font-size:11px}.bottom button span{display:block;font-size:20px;margin-bottom:3px}.bottom button.active{color:#bd6b00;font-weight:800}
+.drawer-bg{position:fixed;inset:0;background:#0007;z-index:10;display:none}.drawer{position:absolute;right:0;top:0;height:100%;width:min(430px,94vw);background:white;padding:20px;overflow:auto}.drawer-bg.open{display:block}.drawer-head{display:flex;justify-content:space-between;align-items:center}.close{border:0;background:#edf0f2;border-radius:50%;width:34px;height:34px}.cart-row{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.qty button{border:1px solid var(--line);background:white;border-radius:5px;padding:3px 8px}.empty{text-align:center;color:var(--muted);padding:35px 5px}.notice{font-size:12px;color:var(--muted);background:#f5f7f8;padding:10px;border-radius:7px;margin-top:12px}
+.quick-toast{position:fixed;left:50%;bottom:82px;transform:translateX(-50%);z-index:20;background:#182735;color:#fff;padding:10px 14px;border-radius:999px;box-shadow:0 5px 22px #0003;display:none;align-items:center;gap:12px;max-width:calc(100vw - 24px);font-size:13px}.quick-toast.show{display:flex}.quick-toast button{border:0;border-radius:20px;background:#ffcf7a;color:#182735;padding:7px 11px;font-weight:800;white-space:nowrap}.add{min-height:42px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:25px 0}
+@media(max-width:850px){.categories{grid-template-columns:repeat(2,minmax(0,1fr))}.products{grid-template-columns:repeat(3,minmax(0,1fr))}.delivery{display:none}.hero-art{font-size:65px}}
+@media(max-width:580px){.categories{grid-template-columns:1fr 1fr;gap:7px}.cat-group{padding:10px}.cat-link{font-size:10px;padding:6px 7px}.top{gap:10px;padding:10px 12px}.brand{font-size:19px}.head-actions{margin-left:auto}.head-actions button{font-size:11px}.search{order:3;flex-basis:100%;height:40px}.subnav{padding:9px 12px}.wrap{padding:13px 11px 85px}.hero{padding:21px 17px;min-height:165px}.hero-art{font-size:48px}.hero h2{font-size:27px}.categories{gap:7px}.cat{padding:10px 4px;font-size:11px;min-height:75px}.cat span{font-size:22px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.photo{height:135px;font-size:54px}.pbody{padding:9px;gap:6px}.pname{font-size:13px}.price{font-size:18px}.section-head{align-items:flex-start;flex-direction:column;gap:8px}.toolbar{width:100%}.toolbar input{flex:1;min-width:0;width:100%}}
+
+.ai-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.ai-card{content-visibility:auto;contain-intrinsic-size:220px 180px;background:#fff;border:1px solid var(--line);border-radius:11px;padding:15px;display:flex;flex-direction:column;gap:7px}
+.ai-card .ai-icon{font-size:28px}.ai-card b{font-size:14px}.ai-card p{font-size:12px;color:var(--muted);line-height:1.45;margin:0;min-height:35px}
+.ai-card button{border:1px solid #d9e0e5;background:#f7f9fa;border-radius:7px;padding:8px;font-size:12px;font-weight:700;margin-top:auto}
+.ai-card button:hover{background:#fff1d9;border-color:#f3c77e}
+.ai-chat{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:12px}
+.ai-chat-head{background:var(--nav);color:white;padding:12px;font-weight:700}
+.ai-chat-body{padding:12px;max-height:300px;overflow:auto;background:#f8fafb}
+.ai-msg{padding:9px 11px;border-radius:10px;background:white;border:1px solid var(--line);margin:7px 0;font-size:13px;line-height:1.5}
+.ai-msg.user{background:#fff1d9;margin-left:15%;border-color:#f2d5a7}
+.ai-compose{display:flex;padding:9px;gap:7px;background:white}.ai-compose input{flex:1;min-width:0;border:1px solid var(--line);border-radius:7px;padding:10px}
+@media(max-width:850px){.ai-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:450px){.ai-grid{gap:8px}.ai-card{content-visibility:auto;contain-intrinsic-size:220px 180px;padding:11px}}
+
+
+.manager-console{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin:10px 0 20px;box-shadow:0 5px 18px #1c2c3810}
+.manager-banner{background:linear-gradient(115deg,#182735,#29445a);color:#fff;border-radius:11px;padding:19px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.manager-kicker{font-size:10px;letter-spacing:1.7px;color:#ffc46d;font-weight:800}.manager-banner h2{margin:5px 0;font-size:21px}.manager-banner p{margin:0;color:#d2dce4;font-size:12px}
+.manager-status{white-space:nowrap;font-size:11px;background:#ffffff18;padding:7px 9px;border-radius:20px}.manager-status i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#62d59a;margin-right:5px}
+.manager-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:12px 0}
+.manager-stats div{background:#f4f6f7;border-radius:8px;padding:10px 12px}.manager-stats b{display:block;font-size:21px}.manager-stats span{font-size:11px;color:var(--muted)}
+.manager-workspace{display:grid;grid-template-columns:1fr 1fr;gap:12px}.manager-compose,.manager-activity{border:1px solid var(--line);border-radius:9px;padding:13px;min-width:0}
+.manager-compose textarea{width:100%;resize:vertical;border:1px solid var(--line);border-radius:7px;padding:10px;margin:8px 0;outline-color:#e9ad4e}
+.manager-controls{display:flex;gap:8px;flex-wrap:wrap}.manager-controls select{flex:1;min-width:150px;border:1px solid var(--line);border-radius:7px;padding:9px;background:white}
+.manager-note{font-size:10px;line-height:1.45;color:var(--muted);margin-top:9px}.manager-activity>b{display:block;margin-bottom:9px}
+.log-item{border-left:3px solid #e6a33b;background:#f7f9fa;border-radius:5px;padding:9px;margin:7px 0;font-size:12px;line-height:1.45}.log-item small{display:block;color:var(--muted);margin-top:4px}.log-empty{color:var(--muted);font-size:12px;padding:18px 4px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+@media(max-width:650px){.manager-workspace{grid-template-columns:1fr}.manager-banner{align-items:flex-start;flex-direction:column}.manager-console{padding:11px}.manager-banner h2{font-size:18px}}
+
+</style>
+</head>
+<body>
+<header>
+ <div class="top">
+  <div class="brand">Global<b>Mega</b>Store</div>
+  <div class="delivery">Deliver to <strong id="deliver">Choose your location</strong></div>
+  <form class="search" id="searchForm"><input id="searchInput" placeholder="Search millions of products…" aria-label="Search products"><button>Search</button></form>
+  <div class="head-actions"><button id="countryBtn">🌐 <span id="countryLabel">Country</span></button><button id="langBtn">文 <span id="langLabel">English</span></button><button id="cartTop">🛒 Cart <b id="cartCount">0</b></button></div>
+ </div>
+ <nav class="subnav"><a href="#deals">Today's deals</a><a href="#categories">Categories</a><a href="#products">Trending</a><a href="#footer">Customer service</a><a href="#footer">Sell with us</a></nav>
+</header>
+<main class="wrap">
+ <div class="welcome"><div><h1 id="greeting">Discover a world of great finds</h1><div class="small" id="locationLine">Worldwide shopping • Your language and currency preferences</div></div><div class="small">🌍 Shopping without borders</div></div>
+ <section class="hero" id="deals"><div><div class="discount">GLOBAL DEALS • LIMITED TIME</div><h2>Big discoveries.<br>Better prices.</h2><p>Explore products and offers from around the world.</p><button class="primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Explore deals →</button></div><div class="hero-art">🛍️</div></section>
+ <div class="section-head" id="categories"><div><h2>Shop by department</h2><div class="small">Browse clearly organized departments and popular subcategories</div></div><div class="category-toolbar"><button id="allCategoryBtn" class="active" onclick="chooseCategory('All')">All departments</button><button onclick="document.getElementById('categoryGrid').scrollIntoView({behavior:'smooth'})">Browse departments ↓</button></div></div>
+ <div class="active-category-note" id="activeCategoryNote">Showing all departments</div><section class="categories" id="categoryGrid" aria-label="Shopping departments"></section>
+ <div class="section-head" id="products"><div><h2>Trending products</h2><div class="small">A sample catalog to get your store started</div></div><div class="toolbar"><input id="filterInput" placeholder="Filter products…"><select id="sortSelect"><option value="featured">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select></div></div>
+ <section class="products" id="productGrid"></section>
+
+ <div class="section-head" id="ai-team"><div><h2>🤖 GlobalMega AI Workforce</h2><div class="small">Your smart digital team — available around the clock</div></div><button class="primary" onclick="openPanel('ai')">Open AI command center</button></div>
+
+ <section class="manager-console" id="managerConsole">
+  <div class="manager-banner"><div><div class="manager-kicker">CENTRAL COMMAND</div><h2>👑 GlobalMega AI Central Manager</h2><p>One command center to coordinate the specialist AI team.</p></div><span class="manager-status"><i></i> Demo team online</span></div>
+  <div class="manager-stats"><div><b id="agentCount">9</b><span>AI specialists</span></div><div><b id="taskCount">0</b><span>Tasks assigned</span></div><div><b id="doneCount">0</b><span>Demo tasks completed</span></div></div>
+  <div class="manager-workspace">
+   <div class="manager-compose"><label for="managerTask"><b>Give the central manager a task</b></label><textarea id="managerTask" rows="3" placeholder="Example: Prepare a campaign for discounted headphones and summarize the steps…"></textarea><div class="manager-controls"><select id="managerDepartment"><option value="auto">Let manager choose the team</option><option value="catalog">Product assistant</option><option value="support">Customer support</option><option value="language">Language assistant</option><option value="orders">Order assistant</option><option value="marketing">Marketing analyst</option><option value="safety">Trust & safety</option><option value="guide">Shopping guide</option></select><button class="primary" onclick="delegateTask()">Assign task</button></div><div class="manager-note">Demo mode: assignments are simulated locally. Connect a secure AI backend to enable real agent reasoning and task execution.</div></div>
+   <div class="manager-activity"><b>Manager activity log</b><div id="managerLog"><div class="log-empty">No tasks yet. Assign a task to see the manager coordinate the team.</div></div></div>
+  </div>
+ </section>
+
+ <section class="ai-grid" id="aiGrid">
+  <article class="ai-card"><div class="ai-icon">🧭</div><b>AI Store Manager</b><p>Coordinates the team and summarizes store activity.</p><button onclick="askBot('manager')">Talk to manager</button></article>
+  <article class="ai-card"><div class="ai-icon">💬</div><b>Customer Support Bot</b><p>Answers product, delivery and return questions.</p><button onclick="askBot('support')">Ask support</button></article>
+  <article class="ai-card"><div class="ai-icon">🌐</div><b>Language Assistant</b><p>Helps prepare localized content in 50+ languages.</p><button onclick="askBot('language')">Talk languages</button></article>
+  <article class="ai-card"><div class="ai-icon">🛍️</div><b>Product Assistant</b><p>Helps organize product descriptions and categories.</p><button onclick="askBot('catalog')">Manage catalog</button></article>
+  <article class="ai-card"><div class="ai-icon">📦</div><b>Order Assistant</b><p>Explains order and shipping workflows.</p><button onclick="askBot('orders')">Ask about orders</button></article>
+  <article class="ai-card"><div class="ai-icon">📊</div><b>Marketing Analyst</b><p>Suggests campaigns and promotional ideas.</p><button onclick="askBot('marketing')">Plan a campaign</button></article>
+  <article class="ai-card"><div class="ai-icon">🛡️</div><b>Trust & Safety Bot</b><p>Provides fraud-prevention and moderation checklists.</p><button onclick="askBot('safety')">Review safety</button></article>
+  <article class="ai-card"><div class="ai-icon">🔎</div><b>Shopping Guide</b><p>Helps shoppers discover products by need.</p><button onclick="askBot('guide')">Find products</button></article>
+ </section>
+
+ <footer id="footer">© 2026 GlobalMegaStore · Independent global marketplace concept<br>Demo storefront — no real payments or orders are processed.</footer>
+</main>
+<nav class="bottom"><div class="bottom-inner"><button class="active" onclick="window.scrollTo({top:0,behavior:'smooth'})"><span>⌂</span>Home</button><button onclick="openPanel('account')"><span>♙</span>Account</button><button onclick="openCart()"><span>🛒</span>Cart <b id="bottomCount">0</b></button><button onclick="openPanel('library')"><span>♡</span>Library</button><button onclick="openPanel('menu')"><span>☰</span>Menu</button></div></nav>
+<div class="quick-toast" id="quickToast" role="status" aria-live="polite"><span id="toastText">Added to cart</span><button onclick="openCart()">View cart</button></div>
+<div class="drawer-bg" id="drawerBg" onclick="if(event.target===this)closePanel()"><aside class="drawer"><div class="drawer-head"><h2 id="drawerTitle">Your cart</h2><button class="close" onclick="closePanel()">✕</button></div><div id="drawerContent"></div></aside></div>
+<script>
+const categories=[
+{icon:'📱',name:'Electronics',subs:['Phones & Accessories','TV & Audio','Cameras','Smart Home','Wearables']},
+{icon:'💻',name:'Computers',subs:['Laptops','Desktops','Computer Accessories','Monitors','Printers']},
+{icon:'🏠',name:'Home & Kitchen',subs:['Kitchen & Dining','Furniture','Bedding','Lighting','Home Décor','Appliances']},
+{icon:'👗',name:'Fashion',subs:['Women’s Clothing','Men’s Clothing','Shoes','Bags','Watches','Accessories']},
+{icon:'💄',name:'Beauty & Personal Care',subs:['Skincare','Makeup','Hair Care','Fragrance','Personal Care']},
+{icon:'🧸',name:'Toys & Games',subs:['Baby & Toddler Toys','Board Games','Dolls','Outdoor Play','Video Games']},
+{icon:'⚽',name:'Sports & Outdoors',subs:['Fitness','Camping & Hiking','Cycling','Team Sports','Outdoor Recreation']},
+{icon:'🚗',name:'Automotive',subs:['Car Electronics','Interior Accessories','Tools','Replacement Parts','Motorcycle']},
+{icon:'📚',name:'Books & Media',subs:['Books','eBooks','Music','Movies & TV','Stationery']},
+{icon:'🛒',name:'Grocery',subs:['Food Cupboard','Beverages','Snacks','Organic Products','Household Essentials']},
+{icon:'🩺',name:'Health & Wellness',subs:['Health Care','Medical Supplies','Fitness Nutrition','Wellness Devices']},
+{icon:'👶',name:'Baby Products',subs:['Baby Clothing','Feeding','Diapering','Strollers','Nursery']},
+{icon:'🐾',name:'Pet Supplies',subs:['Dog Supplies','Cat Supplies','Aquatics','Bird Supplies','Pet Food']},
+{icon:'🖇️',name:'Office & School',subs:['Office Supplies','School Supplies','Desks & Chairs','Writing','Organization']},
+{icon:'🎨',name:'Arts, Crafts & DIY',subs:['Craft Supplies','Painting','Sewing','Home Improvement','Tools']},
+{icon:'💍',name:'Jewelry',subs:['Fine Jewelry','Fashion Jewelry','Watches','Accessories']}
+];
+const products=[
+{id:1,name:'Wireless noise-cancelling headphones',cat:'Electronics',price:39.99,old:59.99,off:33,emoji:'🎧',rating:'4.8'},
+{id:2,name:'Smart watch with fitness tracking',cat:'Electronics',price:49.50,old:69.00,off:28,emoji:'⌚',rating:'4.6'},
+{id:3,name:'Everyday travel backpack',cat:'Fashion',price:27.90,old:39.90,off:30,emoji:'🎒',rating:'4.7'},
+{id:4,name:'Compact home coffee maker',cat:'Home & Kitchen',price:64.00,old:89.00,off:28,emoji:'☕',rating:'4.5'},
+{id:5,name:'Portable Bluetooth speaker',cat:'Electronics',price:24.99,old:34.99,off:29,emoji:'🔊',rating:'4.7'},
+{id:6,name:'Ergonomic wireless keyboard',cat:'Computers',price:32.00,old:45.00,off:29,emoji:'⌨️',rating:'4.4'},
+{id:7,name:'Stainless steel water bottle',cat:'Sports',price:14.50,old:19.50,off:26,emoji:'🥤',rating:'4.8'},
+{id:8,name:'Minimal desk lamp',cat:'Home & Kitchen',price:21.99,old:29.99,off:27,emoji:'💡',rating:'4.6'}
+];
+let cart={};let activeCategory='All';let country='Select country';let currency='USD';let lang='English';
+const $=id=>document.getElementById(id);
+function money(n){return new Intl.NumberFormat(undefined,{style:'currency',currency}).format(n)}
+function renderCategories(){$('categoryGrid').innerHTML=categories.map(c=>
+  `<article class="cat-group"><button class="cat-main" onclick="chooseCategory('${c.name}')"><span>${c.icon}</span><b>${c.name}</b></button><div class="cat-links">${c.subs.map(sub=>`<button class="cat-link ${activeCategory===sub?'active':''}" onclick="chooseCategory('${sub}')">${sub}</button>`).join('')}</div></article>`).join('')}
+function renderProducts(){let q=($('searchInput').value+' '+$('filterInput').value).trim().toLowerCase();let selectedParent=categories.find(c=>c.name===activeCategory);let list=products.filter(p=>(activeCategory==='All'||p.cat===activeCategory||(selectedParent&&p.cat===selectedParent.name))&&(!q||(`${p.name} ${p.cat}`).toLowerCase().includes(q)));
+ if(categories.some(c=>c.subs.includes(activeCategory)))list=products.filter(p=>(p.name+' '+p.cat).toLowerCase().includes(q));let sort=$('sortSelect').value;if(sort==='low')list.sort((a,b)=>a.price-b.price);if(sort==='high')list.sort((a,b)=>b.price-a.price);$('productGrid').innerHTML=list.length?list.map(p=>`<article class="product"><div class="photo">${p.emoji}</div><div class="pbody"><div class="pname">${p.name}</div><div class="rating">★★★★★ <span>${p.rating}</span></div><div><span class="price">${money(p.price)}</span><span class="old">${money(p.old)}</span></div><span class="discount">-${p.off}%</span><button class="add" onclick="addCart(${p.id})">Add to cart</button></div></article>`).join(''):'<div class="empty">No products match your search.</div>'}
+function chooseCategory(c){activeCategory=activeCategory===c?'All':c;$('activeCategoryNote').textContent=activeCategory==='All'?'Showing all departments':'Filtered by: '+activeCategory;$('allCategoryBtn').classList.toggle('active',activeCategory==='All');renderCategories();renderProducts();$('products').scrollIntoView({behavior:'smooth'})}
+function addCart(id){cart[id]=(cart[id]||0)+1;updateCount();let p=products.find(x=>x.id===id);$('toastText').textContent=p.name+' added';let toast=$('quickToast');toast.classList.add('show');clearTimeout(window.gmsToastTimer);window.gmsToastTimer=setTimeout(()=>toast.classList.remove('show'),2600)}
+function updateCount(){let n=Object.values(cart).reduce((a,b)=>a+b,0);$('cartCount').textContent=n;$('bottomCount').textContent=n}
+function openPanel(type){$('drawerBg').classList.add('open');let titles={account:'Your account',library:'Your library',menu:'Store menu',ai:'AI control room'};$('drawerTitle').textContent=titles[type]||'Your cart';let content={ai:'<p><b>GlobalMega AI Workforce</b></p><p>The Central Manager coordinates specialist agents. Assign tasks in the command center; specialists can be opened below.</p><div class="ai-chat"><div class="ai-chat-head">🤖 GlobalMega Assistant</div><div class="ai-chat-body" id="aiChat"><div class="ai-msg">Hello! I can guide you around this demo store. Choose a specialist or ask about products, delivery, languages, marketing or store operations.</div></div><form class="ai-compose" onsubmit="sendAI(event)"><input id="aiInput" placeholder="Ask the AI team…"><button class="primary">Send</button></form></div><div class="notice">Prototype mode: replies are predefined examples. Connect an AI model and secure backend to enable real AI conversations and actions.</div>',account:'<p>Sign-in and customer accounts will be connected in the next development phase.</p><label>Email address</label><input style="width:100%;padding:10px;margin:8px 0" placeholder="you@example.com"><button class="primary" onclick="alert(&quot;Account service is not connected in this demo.&quot;)">Continue</button>',library:'<p>Save products you love here. Wishlist accounts will be enabled when user accounts are connected.</p>♡ Your saved products will appear here.',menu:'<p><b>Explore GlobalMegaStore</b></p><p>Electronics · Home · Fashion · Sports · Beauty · Toys · Automotive</p><p>Help center · Shipping information · Returns · Privacy</p><hr><button onclick="selectCountry()">🌍 Choose country / region</button><p><button onclick="selectLanguage()">文 Choose language</button></p>'};$('drawerContent').innerHTML=content[type]||''}
+function openCart(){$('drawerBg').classList.add('open');$('drawerTitle').textContent='Your shopping cart';let rows=Object.entries(cart).filter(([id,q])=>q>0);if(!rows.length){$('drawerContent').innerHTML='<div class="empty">🛒<h3>Your cart is empty</h3><p>Find something you love and add it here.</p></div>';return}let total=0;$('drawerContent').innerHTML=rows.map(([id,q])=>{let p=products.find(x=>x.id==id);total+=p.price*q;return `<div class="cart-row"><div><b>${p.name}</b><div class="small">${money(p.price)} each</div><div class="qty"><button onclick="changeQty(${id},-1)">−</button> ${q} <button onclick="changeQty(${id},1)">+</button></div></div><b>${money(p.price*q)}</b></div>`}).join('')+`<h3>Subtotal: ${money(total)}</h3><div class="notice">Checkout is a demo only. Payment processing and shipping rates must be configured before launch.</div><button class="primary" style="width:100%;margin-top:14px" onclick="alert('Checkout is not connected yet.')">Continue to checkout</button>`}
+function changeQty(id,d){cart[id]=Math.max(0,(cart[id]||0)+d);if(!cart[id])delete cart[id];updateCount();openCart()}
+function closePanel(){$('drawerBg').classList.remove('open')}
+function selectCountry(){let c=prompt('Enter your country or region (e.g. Morocco, United States):',country);if(c){country=c;$('countryLabel').textContent=c;$('deliver').textContent=c;$('locationLine').textContent='Delivering to '+c+' • Set your postal code in delivery settings.'}}
+function selectLanguage(){let l=prompt('Enter your preferred language (50+ language support planned):',lang);if(l){lang=l;$('langLabel').textContent=l}}
+
+
+let managerTasks=0,managerDone=0;
+const specialistNames={catalog:'Product Assistant',support:'Customer Support',language:'Language Assistant',orders:'Order Assistant',marketing:'Marketing Analyst',safety:'Trust & Safety',guide:'Shopping Guide',manager:'AI Store Manager'};
+function delegateTask(){
+ const field=$('managerTask'),task=field.value.trim();if(!task){alert('Please describe a task for the central manager.');field.focus();return}
+ const requested=$('managerDepartment').value;let dept=requested;
+ if(dept==='auto'){let t=task.toLowerCase();dept=/customer|support|complaint|help|زبون|عميل/.test(t)?'support':/translat|language|ترجم|لغة/.test(t)?'language':/order|shipping|delivery|طلب|شحن/.test(t)?'orders':/market|campaign|sales|advert|تسويق|مبيعات/.test(t)?'marketing':/fraud|security|safe|احتيال|حماية/.test(t)?'safety':/product|catalog|description|منتج/.test(t)?'catalog':'manager'}
+ managerTasks++;managerDone++;$('taskCount').textContent=managerTasks;$('doneCount').textContent=managerDone;
+ const log=$('managerLog');if(log.querySelector('.log-empty'))log.innerHTML='';
+ const item=document.createElement('div');item.className='log-item';const strong=document.createElement('b');strong.textContent='Assigned to: '+specialistNames[dept];const body=document.createElement('div');body.textContent=task;const small=document.createElement('small');small.textContent='Demo assignment recorded · Awaiting real AI backend integration';item.append(strong,body,small);log.prepend(item);field.value='';
+}
+
+const botReplies={
+ manager:"I’m the Store Manager assistant. I can help plan workflows, review store setup, and route tasks to the right specialist. In production, sensitive actions require an authorized human approval.",
+ support:"I’m Customer Support. I can explain product details, shipping policies and returns. This demo has no live order records, so I cannot look up a real shipment yet.",
+ language:"I’m the Language Assistant. The production plan supports 50+ locales, right-to-left layouts, localized currency formatting and human review for important legal or checkout text.",
+ catalog:"I’m the Product Assistant. I can help draft titles, descriptions, attributes and categories. A real catalog connection is needed before I can publish changes.",
+ orders:"I’m the Order Assistant. I can outline order, fulfillment, cancellation and return workflows. Live order status requires a connected order database and shipping provider.",
+ marketing:"I’m the Marketing Analyst. Suggested starting campaign: feature a small curated set of discounted products, test two headlines, and compare conversion rates before scaling.",
+ safety:"I’m Trust & Safety. Use payment-provider fraud tools, rate limits, seller verification, audit logs and human review for disputed or high-risk cases.",
+ guide:"I’m your Shopping Guide. Tell me what you need, your budget and preferred features; I can help narrow down the sample catalog."
+};
+function askBot(role){openPanel('ai');setTimeout(()=>{let chat=$('aiChat');if(chat){chat.innerHTML+=`<div class="ai-msg"><b>${role.toUpperCase()} BOT</b><br>${botReplies[role]}</div>`;chat.scrollTop=chat.scrollHeight}},30)}
+function sendAI(e){e.preventDefault();let input=$('aiInput'),chat=$('aiChat');if(!input||!input.value.trim())return;let q=input.value.trim();chat.innerHTML+=`<div class="ai-msg user">${escapeHTML(q)}</div>`;let lower=q.toLowerCase();let answer=lower.includes('deliver')||lower.includes('ship')?'The demo can show delivery preferences, but live shipping quotes and tracking need a carrier integration.':lower.includes('language')||lower.includes('ترجم')?'The planned localization system covers 50+ languages. Automatic language selection should use browser preferences with a manual override.':lower.includes('product')||lower.includes('منتج')?'Browse the sample products above, or use search and category filters. The production catalog will connect to a database.':lower.includes('order')||lower.includes('طلب')?'Real order tracking is not connected in this prototype. It will require customer accounts, order storage and carrier APIs.':'Thanks for your question. I can guide you through the demo store. For real AI answers, this assistant must be connected to an AI model through a secure server.';chat.innerHTML+=`<div class="ai-msg">${answer}</div>`;input.value='';chat.scrollTop=chat.scrollHeight}
+function escapeHTML(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+$('cartTop').onclick=openCart;$('countryBtn').onclick=selectCountry;$('langBtn').onclick=selectLanguage;
+$('searchForm').addEventListener('submit',e=>{e.preventDefault();renderProducts();$('products').scrollIntoView({behavior:'smooth'})});
+$('searchInput').addEventListener('input',()=>{clearTimeout(filterTimer);filterTimer=setTimeout(renderProducts,90)});
+document.addEventListener('keydown',e=>{if(e.key==='/'&&!/input|textarea|select/i.test(document.activeElement.tagName)){e.preventDefault();$('searchInput').focus()}if(e.key==='Escape')closePanel()});
+let filterTimer;
+$('filterInput').addEventListener('input',()=>{clearTimeout(filterTimer);filterTimer=setTimeout(renderProducts,100)});
+$('sortSelect').addEventListener('change',renderProducts);
+renderCategories();renderProducts();
+</script>
+</body></html>
